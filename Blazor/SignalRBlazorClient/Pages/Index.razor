@@ -1,0 +1,54 @@
+@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+
+<h3>📡 Eventos en tiempo real (Blazor)</h3>
+
+@if (eventos.Count == 0)
+{
+    <p>No hay eventos aún...</p>
+}
+else
+{
+    <ul>
+        @foreach (var ev in eventos)
+        {
+            <li>
+                <strong>@ev.Titulo</strong>: @ev.Contenido
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Evento> eventos = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var connection = new HubConnectionBuilder()
+            .WithUrl("http://localhost:5258/hub/notificaciones") // URL de tu backend
+            .WithAutomaticReconnect()
+            .Build();
+
+        connection.On<Evento>("EventoRecibido", (evento) =>
+        {
+            eventos.Insert(0, evento);
+            InvokeAsync(StateHasChanged); // Actualiza UI
+        });
+
+        try
+        {
+            await connection.StartAsync();
+            Console.WriteLine("✅ Conectado a SignalR");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Error de conexión: {ex.Message}");
+        }
+    }
+
+    public class Evento
+    {
+        public string Titulo { get; set; } = string.Empty;
+        public string Contenido { get; set; } = string.Empty;
+    }
+}

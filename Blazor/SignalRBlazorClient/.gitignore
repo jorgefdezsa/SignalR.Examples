@@ -1,0 +1,57 @@
+# Archivos de compilación y binarios
+bin/
+obj/
+out/
+
+# Carpetas de publicación
+wwwroot/dist/
+wwwroot/build/
+publish/
+**/publish/
+
+# Archivos temporales de VS / Rider
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos de configuración de entorno
+*.env
+*.env.local
+*.env.*.local
+
+# Archivos generados por Visual Studio
+Generated\ Files/
+
+# Archivos de cache
+*.dbmdl
+*.jfm
+*.pdb
+*.cache
+*.bak
+*.log
+
+# Carpetas de dependencias
+node_modules/
+wwwroot/node_modules/
+
+# Configuración de sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Secretos y configuraciones locales
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# Archivos de cobertura de código
+coverage/
+*.coverage
+*.coveragexml
+
+# Archivos generados por herramientas
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
